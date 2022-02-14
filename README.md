@@ -4,7 +4,7 @@ Trinh Viet Doan<sup>&sect;</sup> | Roland van Rijswijk-Deij<sup>&para;</sup> | O
 
 <sup>&sect;</sup> Technical University of Munich, <sup>&para;</sup> University of Twente \& NLnet Labs, <sup>&Dagger;</sup> Brandenburg University of Technology   
 
-[ACM TOIT 2022](https://dl.acm.org/journal/toit), accepted for publication in 2022. [Pre-print TBD]()  
+[ACM TOIT 2022](https://dl.acm.org/journal/toit), published in February 2022. [PDF](https://home.in.tum.de/~doan/2022-toit-paper.pdf)  
 DOI: [10.1145/3503158](https://doi.org/10.1145/3503158).
 
 ---
