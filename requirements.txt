@@ -1,0 +1,37 @@
+adblockparser
+brokenaxes
+dill
+fastavro
+ipykernel
+matplotlib
+numpy
+pandas
+pyasn
+re2
+requests
+scipy
+
+### Parts of Python Standard Library
+# codecs
+# csv
+# datetime
+# calendar
+# gc
+# glob
+# gzip
+# json
+# mimetypes
+# multiprocessing
+# os
+# re
+# shutil
+# sqlite3
+# sys
+# tarfile
+# urllib
+# warnings
+
+
+### Manual installation/download required
+# import Cdf  , from https://greenteapress.com/thinkstats/Cdf.py
+# import Pmf  , from https://greenteapress.com/thinkstats/Pmf.py

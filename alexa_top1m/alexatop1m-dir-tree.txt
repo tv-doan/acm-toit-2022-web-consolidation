@@ -1,0 +1,541 @@
+.
+├── 1a-download-alexa.py
+├── 1b-unpack_alexa_toplists.py
+├── 1c-process_alexa.py
+├── 2-hybrid-identification-alexa.py
+├── 3-merge-identifications.py
+├── 4-add-ranking-information.py
+├── 5-Aggregate_CDNPenetration_ALEXA-HYBRID.ipynb
+├── 6-alexatop1m-dec-2019-CDN-pen.ipynb
+├── alexa-2019-12.tar                               # not provided in this repository
+├── asn_cdns.csv
+├── data                                            # raw/unpacked/processed data not provided
+│   └── openintel-alexa1m
+│       ├── data
+│       │   ├── 20191201
+│       │   │   ├── CO_49BBAB7469C6713D9F54912E17993F66.avro
+│       │   │   ├── CO_5BD057F14B458DF879F11122E4A6A596.avro
+│       │   │   ├── CO_655CA9B25A6305B956367D67EAA61CE0.avro
+│       │   │   ├── CO_7A3F8357468FABDF509BA482A2480ADA.avro
+│       │   │   ├── CO_954FDC756FD04055A8130E2DED7BE540.avro
+│       │   │   ├── CO_AAC5E253F9D23366A1752A44E7840DFD.avro
+│       │   │   ├── CO_B62D45517745869B217381A5F704E420.avro
+│       │   │   ├── CO_B641B2CECE05A4DEE6612A1E5AEBA86C.avro
+│       │   │   ├── CO_D33F6003D9143F8AD937CAB97CA895F3.avro
+│       │   │   ├── CO_D63B57A58D00B5C20DADB0033FC216AB.avro
+│       │   │   ├── CO_E37E49ADC8C1FF75EE64D5432CF98F16.avro
+│       │   │   └── CO_F39D7F0E6EC860022B4E8D056F9DE46D.avro
+│       │   ├── 20191202
+│       │   │   ├── CO_1AAB360ADB569F029A5DAF4551E8B2E7.avro
+│       │   │   ├── CO_1B1C003E6D89CE72C366B07B77637DBA.avro
+│       │   │   ├── CO_1B1FD3CA7870AB1D06351F376CDB1482.avro
+│       │   │   ├── CO_457225336843549B298D9356426C1F23.avro
+│       │   │   ├── CO_46DC934ADA39977AB01CDDA7B955F5C8.avro
+│       │   │   ├── CO_6ED8958929B94FEB5C968BD1303DE6B1.avro
+│       │   │   ├── CO_781CBC3DC2DDD9558E6E5A24EB518D00.avro
+│       │   │   ├── CO_862A7BDEF9095BD84CA8125CC5448C50.avro
+│       │   │   ├── CO_90AD31A56BE9B411AFAB6572195DC443.avro
+│       │   │   ├── CO_9CDBC662373584E49DB8DEF87680EB46.avro
+│       │   │   └── CO_D0FC2C65DD7EEBFB0E61E866B2E6EE13.avro
+│       │   ├── 20191203
+│       │   │   ├── CO_11D5651F95A0E5E1EF78FA601C8AAB5D.avro
+│       │   │   ├── CO_11DC678D640C8B187A69057D34E978D8.avro
+│       │   │   ├── CO_13FC46BE140FC3AFFF902B18E0D1CBEE.avro
+│       │   │   ├── CO_18F2D99176E444B4A319D2483EF70970.avro
+│       │   │   ├── CO_1B681AC847F9217AEEC16F95A4089285.avro
+│       │   │   ├── CO_26EE5007C9F1D659B0EE50A18273B798.avro
+│       │   │   ├── CO_30D3EE4437F7F38BB9350BDB63EDCA9B.avro
+│       │   │   ├── CO_8162EBAF54424AD5B12657D814768DA1.avro
+│       │   │   ├── CO_848CCF0329A38A5FFC0F264437B62671.avro
+│       │   │   ├── CO_8E345070FB93C4930D41E99C735E58B8.avro
+│       │   │   ├── CO_94A6849C31A37999C583C400395C84B1.avro
+│       │   │   ├── CO_9A43F2986BA7D54FA9580D9616FE7143.avro
+│       │   │   ├── CO_9E6A623B06E8AD37B08A6BC2C1ECF4C1.avro
+│       │   │   └── CO_C9F0F3EE337D9632BDA8E890B4FE4C81.avro
+│       │   ├── 20191204
+│       │   │   ├── CO_0D7D6E4BE3BB3BCCC84FB5C663F97980.avro
+│       │   │   ├── CO_2DF707DA75E817F3F961ED76EE91AC65.avro
+│       │   │   ├── CO_6C9B4FA74567E3EA58451BEE24FC76C5.avro
+│       │   │   ├── CO_7764B92739DD5C7AD2BEE217E5D1A2A5.avro
+│       │   │   ├── CO_77956913A4C0022E9CBB9948FDD6DFB4.avro
+│       │   │   ├── CO_7AE99B76F7E04BE1710133E2E4714B1F.avro
+│       │   │   ├── CO_7BF2AFDED8FE81B724182FC3A9979859.avro
+│       │   │   ├── CO_83652AB45B10DD0D5C698756FDC7FC15.avro
+│       │   │   ├── CO_8CFB00518E40941052A84876723577A0.avro
+│       │   │   ├── CO_A3ABF1239B2E79A178662DB2FCA79DD6.avro
+│       │   │   ├── CO_BE2FCC7BF6268523F65F8B0752795F15.avro
+│       │   │   ├── CO_C112D5CBE270C40F909A6D9BFEB0384B.avro
+│       │   │   ├── CO_CF3137E092D1D7367C9AF7185EB48527.avro
+│       │   │   ├── CO_D0085A20413AA5B0FB801801CA0DAB43.avro
+│       │   │   ├── CO_EA33DE0B2AC129EB3CC6E229C7255B2F.avro
+│       │   │   └── CO_FB1200D06943973BB93CA0181EFEAC7E.avro
+│       │   ├── 20191205
+│       │   │   ├── CO_046D12B57B3E0F1A1BB2A6FA908B9BCA.avro
+│       │   │   ├── CO_1212286B1BFBDFC175FA9CCAEF5E69E6.avro
+│       │   │   ├── CO_1DC9674F8FBF4D57B45347E9414B2464.avro
+│       │   │   ├── CO_2D086D728E75B1A579EEEA43187133E4.avro
+│       │   │   ├── CO_3D196B32444A499C77EB37DB780FB472.avro
+│       │   │   ├── CO_43C2700C7317607078FE850201F8D8D1.avro
+│       │   │   ├── CO_6FD6C4E4BD37CDB4CA82B31891D9C370.avro
+│       │   │   ├── CO_739AE31D72C7191AEFB0D16E3A85C63D.avro
+│       │   │   ├── CO_748320129AC59D318CCDEEAFD84F334D.avro
+│       │   │   ├── CO_78EE44AD2682878123E8888821E63324.avro
+│       │   │   ├── CO_888229DC0DB664D25A79E89E4DDB7CC2.avro
+│       │   │   ├── CO_9658935E571663B8F07E0AA7E5394D6A.avro
+│       │   │   ├── CO_BB63DBD8EE727DAF9A9A40889733EB1C.avro
+│       │   │   ├── CO_C0ECFF6ADFC517FC2E596916F2DF0F3E.avro
+│       │   │   └── CO_D6482B25748BCFDA4D6D5E21E044E8CC.avro
+│       │   ├── 20191206
+│       │   │   ├── CO_2F6766BF9F3AB87F8A3AC251D10FC6D1.avro
+│       │   │   ├── CO_39FE65EC891C4C0AFDF00D9072F81CC3.avro
+│       │   │   ├── CO_55A4C395AFC134B8C02FFAAD57A27577.avro
+│       │   │   ├── CO_5EA687FD62CC739E9EEB65BC2BF5E733.avro
+│       │   │   ├── CO_6DF71AF35A6AD191104E754DAD391DB2.avro
+│       │   │   ├── CO_7EE9F27490EBDCEDE1817AFDB01CB440.avro
+│       │   │   ├── CO_94F7E22D41E9AEC0AD2D692D41DFDABF.avro
+│       │   │   ├── CO_958A1964085985AF79BF2E6128C22788.avro
+│       │   │   ├── CO_B94937133AED1EA16AF45502A94F3EA6.avro
+│       │   │   ├── CO_D1958EBDA159069A933430E429251AAA.avro
+│       │   │   ├── CO_DEDDCD95032CDD46358252043FA9D95C.avro
+│       │   │   ├── CO_E2E807B41AB4758F66A5C979CBF4B6F7.avro
+│       │   │   ├── CO_E8BD602A7FA85C4E8ED1EF076791CC32.avro
+│       │   │   ├── CO_F32D7FB41D651074B0F4746E408438A0.avro
+│       │   │   └── CO_F3A2C71DCC7E1F76012AF0466A19A6CD.avro
+│       │   ├── 20191207
+│       │   │   ├── CO_1A9999CD64F19D03CC59404A874AB06A.avro
+│       │   │   ├── CO_25D13DBFAAC7223A2EEF0A64120B5819.avro
+│       │   │   ├── CO_3B5E624A7A4950B9D9D2939AD5C0F597.avro
+│       │   │   ├── CO_53245BE164EE2A45E90B53685A5D3FE7.avro
+│       │   │   ├── CO_537646D80344037F9831DED0E52C622D.avro
+│       │   │   ├── CO_6E8EAECDD99E5D971CB62F3CAC84E1B9.avro
+│       │   │   ├── CO_70D1D5B0BAC4FCEDBEFEEA6E353414B0.avro
+│       │   │   ├── CO_852732FC449A2C5605AECDB8E3492758.avro
+│       │   │   ├── CO_87A326E7E1A511FDBD9B72D1C1A4261B.avro
+│       │   │   ├── CO_B5EF558AF3533EE7A4CF11ED227E6A38.avro
+│       │   │   ├── CO_BBF67876C28F15B2CB876D5EDE9B7777.avro
+│       │   │   ├── CO_DAD8B4293241B290C71C5A722997CAE2.avro
+│       │   │   ├── CO_E60B8E2793D78863F0A5CC2DBD571D15.avro
+│       │   │   ├── CO_E9AF60EEE76F09E9F6E0BAD754BDE0C6.avro
+│       │   │   └── CO_F1EDDA4265180FACBA920BA596DF49D7.avro
+│       │   ├── 20191208
+│       │   │   ├── CO_13637BC9E4FBEAA6463A76395E9DAF37.avro
+│       │   │   ├── CO_1D4DFC6DD677DD64FC3F35259247CDED.avro
+│       │   │   ├── CO_2A2515C3F694E7F7E5DAF46C063E9C78.avro
+│       │   │   ├── CO_3828F8832817CAC80534DE7740443B5C.avro
+│       │   │   ├── CO_50C34CC72E6F3709111DDEAD19396602.avro
+│       │   │   ├── CO_5B5625B122560C5DECD4977F10DAE970.avro
+│       │   │   ├── CO_6959FA956ED92CC66B64E2CA41F21BBF.avro
+│       │   │   ├── CO_7EB79A3D7931BDAFDF41F41DC0203A19.avro
+│       │   │   ├── CO_8CE724FE049FF0BB44217509BD63EAB1.avro
+│       │   │   ├── CO_BD8F5148F6BA9D8630B566145587103D.avro
+│       │   │   ├── CO_DDE58FA61ED71B7023E74E9BCE34271F.avro
+│       │   │   └── CO_E96B21A28A5AE3E32DE8373BEC8DBF9B.avro
+│       │   ├── 20191209
+│       │   │   ├── CO_0204B45DF095103E11796F8E29C2593D.avro
+│       │   │   ├── CO_0679F8B3A327EA974132D1465A52F3CC.avro
+│       │   │   ├── CO_085EC62D929B84B2CCCB7853ECD96586.avro
+│       │   │   ├── CO_0F01FA105DF9EAD2CF628E9B40050ACB.avro
+│       │   │   ├── CO_246D5D17DC24B6B30A86B663218BC1C4.avro
+│       │   │   ├── CO_372669321F0EE79DEC46663759584A67.avro
+│       │   │   ├── CO_688732B9B982679D315A4FED2FFA2E0E.avro
+│       │   │   ├── CO_6A9D1782FB00AF7C309C9D1057AEADBC.avro
+│       │   │   ├── CO_9815DF7009AF545496F96658009056FF.avro
+│       │   │   ├── CO_9C0FD1A629FFF68AD0E2449260AF4AB4.avro
+│       │   │   └── CO_F4A31F6528C357277D1500C3B74DC7E4.avro
+│       │   ├── 20191210
+│       │   │   ├── CO_27053FED3B94F380CCD85273F558FB1A.avro
+│       │   │   ├── CO_30F95DEED5F13AF78C950FC107CAE4EC.avro
+│       │   │   ├── CO_430B9B1A508A8F6C887B114CF055635D.avro
+│       │   │   ├── CO_5DE758556F93C5F5E08C0320CA1BC2BE.avro
+│       │   │   ├── CO_5E77130E0CD45487A3FD96425BF04FC3.avro
+│       │   │   ├── CO_8CAF2C857A6A70B26499896A408F12CE.avro
+│       │   │   ├── CO_916AA5DEE3D0CE2DC340D87D635CF0E5.avro
+│       │   │   ├── CO_B704F53242266F0C3C47AFB5A893BD90.avro
+│       │   │   ├── CO_C5114D04F1DBE48F07AEFBAD1E835C30.avro
+│       │   │   ├── CO_C79A52B510C3465CB082D14CCE7DB8A9.avro
+│       │   │   ├── CO_D9D989FF37E716484B0B84A5B13E18F1.avro
+│       │   │   ├── CO_E5A024B3B5E446AC74E467ECC993A487.avro
+│       │   │   └── CO_E61C419A0105941D17C918B46852B540.avro
+│       │   ├── 20191211
+│       │   │   ├── CO_1DC81602D8BF3F74B21E86528AD5955C.avro
+│       │   │   ├── CO_2C6125C69CECAFDF72A5AE68E4D701F3.avro
+│       │   │   ├── CO_2D27DA1116FF48CBF9CEDD23C3B85B06.avro
+│       │   │   ├── CO_2F0096D9BF9085E730D4BA7F6BBF5CAF.avro
+│       │   │   ├── CO_2F365685894682D78FC87A2AD0786172.avro
+│       │   │   ├── CO_3A1AE36172276BF840B5B5781243A477.avro
+│       │   │   ├── CO_47ADE26CC07E4329F04DD6D989A0C244.avro
+│       │   │   ├── CO_711209EC9837C1627B613016FDBB1C74.avro
+│       │   │   ├── CO_9437E1E6C988D3B51A6C9E8D24DAB006.avro
+│       │   │   ├── CO_9FCD2D62B89BD7E1710FC9AC1E80B076.avro
+│       │   │   ├── CO_A35D158F98CE00EFD1AFEB509F0B0C89.avro
+│       │   │   ├── CO_BAFF3552DB5715C2E60203396A598301.avro
+│       │   │   ├── CO_C8337072C9BE55A0A84DCBCF48DC063D.avro
+│       │   │   ├── CO_D8DE43B77395FB876685A290DFED6B32.avro
+│       │   │   ├── CO_F7A57C7FA25F1A54D047204CE3C79C76.avro
+│       │   │   └── CO_FEB4D7AFC792680FD663555560654353.avro
+│       │   ├── 20191212
+│       │   │   ├── CO_0134A6A04DE2F40A906285B5F59BDAFF.avro
+│       │   │   ├── CO_22FFF65B8D6845475DCE05D0A5D5941D.avro
+│       │   │   ├── CO_27A032ED5F670EFD8FF4EBD4F5A524CA.avro
+│       │   │   ├── CO_2BA3B94AF3B355554C1BD8FEF920721A.avro
+│       │   │   ├── CO_2E32F3693294DA79E704A983533EF702.avro
+│       │   │   ├── CO_52EAEE87C82C84960D0BAF300A0C0DE9.avro
+│       │   │   ├── CO_5FA02CB2DCB732C3DB7799BB30B128CB.avro
+│       │   │   ├── CO_60347DE1344E545427C0BB09D053A693.avro
+│       │   │   ├── CO_8DCDA300821C44352BBEEBCE623A8428.avro
+│       │   │   ├── CO_9167A045C977EC478EC6C946240FC3C5.avro
+│       │   │   ├── CO_DABEE90E9DF26837A5D563C518326411.avro
+│       │   │   ├── CO_DE564FEA6FCE69EA3AB0933DA9CE32B2.avro
+│       │   │   └── CO_EB636A55DF943EB771FBD2F5C82D6697.avro
+│       │   ├── 20191213
+│       │   │   ├── CO_0147A129E6956D231878093AFE3871F3.avro
+│       │   │   ├── CO_11927BDA12AF19B7B012EE04391AC70D.avro
+│       │   │   ├── CO_2158C7F800FA90C0669781E9203EB184.avro
+│       │   │   ├── CO_217A57C131B307E85E277211B757DD65.avro
+│       │   │   ├── CO_35F1AAF2F715E1DD39B95D5AF3B1FE65.avro
+│       │   │   ├── CO_406E8210854C8EE10A8228C44B21279F.avro
+│       │   │   ├── CO_409D46488252DD9EBD0122D2188DE4AD.avro
+│       │   │   ├── CO_4F27A6995B2B846684F49D03A4A40F5D.avro
+│       │   │   ├── CO_65E61EB22483B5CBFCE608369589334C.avro
+│       │   │   ├── CO_7078C98A0244204E001E22B4815C3A71.avro
+│       │   │   ├── CO_8033CE0EFC49576494C721C7F0155113.avro
+│       │   │   ├── CO_8E2840E9D204B2D4F20A36EE507C8002.avro
+│       │   │   ├── CO_988B02D1D344B4F3BE05BBC25BF62181.avro
+│       │   │   ├── CO_A57E2811FC0CA0535ACB75F3E39A29BC.avro
+│       │   │   └── CO_FA9423A806FC9B442078287F6DD9563B.avro
+│       │   ├── 20191214
+│       │   │   ├── CO_3247590D46B600DFCAA0336D8EBC7E59.avro
+│       │   │   ├── CO_48D5227133BBF6656538AD22E4448DA0.avro
+│       │   │   ├── CO_7578E9E8544794B8B0D79FCBCECCEE90.avro
+│       │   │   ├── CO_8D31A9F21234D4DC8A03B3A22124E5D4.avro
+│       │   │   ├── CO_A53F663C99C45A552EFE53DBD51FF3A4.avro
+│       │   │   ├── CO_B3BD6A71CDA8DCB85720DBBE9FCD519A.avro
+│       │   │   ├── CO_D0A8B5BF9126B63A450740F2D4A229B8.avro
+│       │   │   ├── CO_D3620C13E30E6CEC9064D62A7F721332.avro
+│       │   │   ├── CO_DF1E8F179EA4303CD514DD4C94864D1D.avro
+│       │   │   └── CO_E9D2A589EF25DCB2CE2B7EB29D879641.avro
+│       │   ├── 20191215
+│       │   │   ├── CO_02E3BC33205C802CF12ED4F97F23D4A2.avro
+│       │   │   ├── CO_1392F1952A9CA4E1DCCDB4B2968769C8.avro
+│       │   │   ├── CO_15CF827F0AFAC96F26ED6B36EB9A0419.avro
+│       │   │   ├── CO_1CFB4DF8A96BDF80EA6B72065DF529F1.avro
+│       │   │   ├── CO_3153390F3CC31676E6E25AC9D67C806B.avro
+│       │   │   ├── CO_992C26DF67F17B08F7281882030393D0.avro
+│       │   │   ├── CO_A122DD385FAEE6E08DF62927FA77C37E.avro
+│       │   │   ├── CO_ACCF2E4D4A31EEDF0453230C57B31DBB.avro
+│       │   │   ├── CO_CC7849F7DE08B49D46ED43EFAAE9A300.avro
+│       │   │   ├── CO_DC1E9B5B6AA920E63F20A72B90ED575D.avro
+│       │   │   ├── CO_F344A7E3E5B4DA475E6B90128B719B78.avro
+│       │   │   ├── CO_FBE16B5B0807D4356265AD3BC59E9BF4.avro
+│       │   │   └── CO_FC80642D2F94E15EB8D387072ECFE1DA.avro
+│       │   ├── 20191216
+│       │   │   ├── CO_0128960955250560130FC815E38A6B7E.avro
+│       │   │   ├── CO_21C6044C1DAF711214A1374144E486B3.avro
+│       │   │   ├── CO_3C5CB3909DC9C83A689E7992EC6C409D.avro
+│       │   │   ├── CO_42337E07E5C09652308FD7F758E8710F.avro
+│       │   │   ├── CO_57AA0A97C5BFAB8EE6A5AD3820A5C111.avro
+│       │   │   ├── CO_63C0FD974FAEA80C20587F8B114398AE.avro
+│       │   │   ├── CO_6D2CB0A496DD85887022CE16C0852732.avro
+│       │   │   ├── CO_7A0E2D293D5170C915EA4E7154D2E3DA.avro
+│       │   │   ├── CO_AA44435E75E31DAF1C6755D0253A2CE6.avro
+│       │   │   ├── CO_BAB59249BE8ACBCC74F85389F6A2F70B.avro
+│       │   │   └── CO_D59A791255B96FC8673D6C247BE97D60.avro
+│       │   ├── 20191217
+│       │   │   ├── CO_12EFF7D5A5C5874FA79EF4674357886B.avro
+│       │   │   ├── CO_1715D0B9AA0AC517842270FC9722E149.avro
+│       │   │   ├── CO_2B25CB1744E83B2CB7565ADD34159271.avro
+│       │   │   ├── CO_585FF110DFE4AB1587E0C6BAA4716C70.avro
+│       │   │   ├── CO_83B87F80FE5F992BFADC65C77792E686.avro
+│       │   │   ├── CO_86CFCDF51461EA6B3B736D05967740AE.avro
+│       │   │   ├── CO_969E2F321C00EBA21814FA9182469F72.avro
+│       │   │   ├── CO_CAEB77F5C472FA5D4C56410CFB6D59F8.avro
+│       │   │   ├── CO_CED3317584F3DB749DC52E8CC2EE577B.avro
+│       │   │   ├── CO_DA59D07F902845962C53F4992E1DFFDD.avro
+│       │   │   ├── CO_DF6A1A82C41ED176EED2FC16B3B1A6F0.avro
+│       │   │   ├── CO_E995DE40FE907B181B3C1B2AC3E9789B.avro
+│       │   │   └── CO_F70A2281B086204BD6E6221724C9AB49.avro
+│       │   ├── 20191218
+│       │   │   ├── CO_053601B9580F7336A50E34A49B58901E.avro
+│       │   │   ├── CO_0DB50F4C3EC39874D473D01AAAF8C7CF.avro
+│       │   │   ├── CO_119419276801A968575F25D8E62FF265.avro
+│       │   │   ├── CO_1622A77DB7D51F601E4B337B2A808971.avro
+│       │   │   ├── CO_1D8B9E77278B37F37D83D979F8826E20.avro
+│       │   │   ├── CO_45B063E27D6572281BEB97301CA86DBA.avro
+│       │   │   ├── CO_4616B6B5EAF13E83F44E516719C61F18.avro
+│       │   │   ├── CO_66F570DA27D88C131120A8E1C76D701C.avro
+│       │   │   ├── CO_80FD637F4F26EF5F1A21703456C9BAB5.avro
+│       │   │   ├── CO_81679DC75B349AF7DCA8D4981F335A99.avro
+│       │   │   ├── CO_97D73A74BBDCCADC2449F9AD6474DD00.avro
+│       │   │   ├── CO_9AA259C05BBF988BA77F4AEBD0337DDE.avro
+│       │   │   ├── CO_9DD30F2A2245A078D661F91E9CD2561B.avro
+│       │   │   ├── CO_BBBAB3DB1B07EF17FFE6A10F3AAA565E.avro
+│       │   │   └── CO_CBAF73AEF19408661C606C5217EF36DD.avro
+│       │   ├── 20191219
+│       │   │   ├── CO_0A23200BE6EF1694D944028238BE41A4.avro
+│       │   │   ├── CO_108F2976351D99C0D1EB519153066507.avro
+│       │   │   ├── CO_322A18CEF65D3E6204D66A4270D05BFF.avro
+│       │   │   ├── CO_41C1118A189C0A559798DB14600AD448.avro
+│       │   │   ├── CO_9513D581D40B892E89CA04BE1ED559FC.avro
+│       │   │   ├── CO_99D9D0C1A22F69255CFF20ED06AB3E1B.avro
+│       │   │   ├── CO_9D9C3B0EC899DAD3ACDA5770AD477FC1.avro
+│       │   │   ├── CO_9F10DE866000D51EF80348A6C5EA1793.avro
+│       │   │   ├── CO_B70FEE8DE09EE2DB476BB90AF2AF4491.avro
+│       │   │   ├── CO_B9F95AE7B3427F7B737BBE09A78D4E25.avro
+│       │   │   ├── CO_BEF210F0301C3375ECEFA4244B267797.avro
+│       │   │   ├── CO_C5FA5358119737E099B929FAD486C473.avro
+│       │   │   ├── CO_D0211904A6812CB45ACC990B02AE48C8.avro
+│       │   │   └── CO_E6D8304880AA4EF4EA102A6AFC4C9779.avro
+│       │   ├── 20191220
+│       │   │   ├── CO_244D6DB391455809EF688C2D19205CF9.avro
+│       │   │   ├── CO_2558AC8DE1D8029BEA9B3F41580E121A.avro
+│       │   │   ├── CO_399A2A755D72F13FECCA32F3E9FEB7B3.avro
+│       │   │   ├── CO_41AFB6CE63FCB2B24DB9049E4DBCAA9A.avro
+│       │   │   ├── CO_421BDF5D69EF4FC680CD2A00D6575E8B.avro
+│       │   │   ├── CO_4991879BCA97DBD3960DFC7DA8CE06BC.avro
+│       │   │   ├── CO_65E5819A711E899EE9A7115503FD1C36.avro
+│       │   │   ├── CO_737B5F8B996988E953E19E4E66DA5C21.avro
+│       │   │   ├── CO_8FEF2C08E43618393183AFC41E6641AB.avro
+│       │   │   ├── CO_A4BCAE23794F03725E6994A1C444F3B9.avro
+│       │   │   ├── CO_C1DFC2106DEDE649CA4C819C330BEB8F.avro
+│       │   │   ├── CO_CC2C7126C20B5FC7B1DD713C41379599.avro
+│       │   │   ├── CO_D303C3946828056FDB11B786DF4D7777.avro
+│       │   │   └── CO_E7C25A71FBEDBFDD20E870E067F03803.avro
+│       │   ├── 20191221
+│       │   │   ├── CO_0162E84316D09C80E9726E5665B45219.avro
+│       │   │   ├── CO_0C81128A29BAABC2DDE1F2AC98CAC4E9.avro
+│       │   │   ├── CO_0F504A7BC818A506335D23C99A856969.avro
+│       │   │   ├── CO_3835B7E3E7B7E967ABF6188068383310.avro
+│       │   │   ├── CO_596689CA7D111CBE764B462369F602DF.avro
+│       │   │   ├── CO_5E48706C686BDA72A8265D6F1DC0C847.avro
+│       │   │   ├── CO_AA482A0A960DC2679A73B3E127CC3E62.avro
+│       │   │   ├── CO_C4A288E95DB1887F604B9D471F2B1258.avro
+│       │   │   ├── CO_D031A838F69251C52BF8EC0618106BB0.avro
+│       │   │   ├── CO_DCAA60263D782A7AE0279BC81B8950DC.avro
+│       │   │   ├── CO_F3625D21E4F10C6AFFF641CE7419EC8E.avro
+│       │   │   ├── CO_F4C1A2F05FCE88DA47A7DC530B134CAD.avro
+│       │   │   └── CO_FE177BCC0F5AD17F557C17B48692B0E1.avro
+│       │   ├── 20191222
+│       │   │   ├── CO_32637B699388DE420531984D5129B8D6.avro
+│       │   │   ├── CO_3D6C9B9015B7D72FE3FE67F525D92F89.avro
+│       │   │   ├── CO_426C0C4253159B35DA4309E5394FFBF8.avro
+│       │   │   ├── CO_4D04CC7569AC75C5BB82F83B53D3BFFE.avro
+│       │   │   ├── CO_6DABC3755E8A9D5E98B0C5A5880FA6B1.avro
+│       │   │   ├── CO_7D6E03CDD25B3BA81EB1B217C08B963F.avro
+│       │   │   ├── CO_8EB261397AA3A521C79A5BC0530D3A18.avro
+│       │   │   ├── CO_8FA6FB14630369BA0F5CF2BD4F29ED39.avro
+│       │   │   ├── CO_B9062DA31B898910D3243511CCC48106.avro
+│       │   │   ├── CO_CCBBE7E7E8F43C08543942E59030BEDD.avro
+│       │   │   └── CO_F70D9DB236126FACE8B81D9D38C15EF3.avro
+│       │   ├── 20191223
+│       │   │   ├── CO_07408169FD1B64F3387FA5F39434D1BB.avro
+│       │   │   ├── CO_3E4B9163E96B4CE0E2BF91DCA3158628.avro
+│       │   │   ├── CO_6EC4632909565160795AEEAE0D8CB533.avro
+│       │   │   ├── CO_933090E948E2B371C79FEC2F064A4331.avro
+│       │   │   ├── CO_94FD1112E4B983EA16784C300A4D9C9D.avro
+│       │   │   ├── CO_A436A88C0B0B2700B715ECBF6EB83B85.avro
+│       │   │   ├── CO_ACD35EC54EC70F49A4BB4DDFE48DB83C.avro
+│       │   │   ├── CO_BA0A13A92A9B8453AA73221AEADA5043.avro
+│       │   │   ├── CO_D713BCA5675B5E6520B3FFB237CF9AF8.avro
+│       │   │   └── CO_F3EBF0EA424C93A8103642F1F20CE1E9.avro
+│       │   ├── 20191224
+│       │   │   ├── CO_06C580403610308B1EA384B1894616F5.avro
+│       │   │   ├── CO_07F3D8FC09CB28FA405B581DD25F0836.avro
+│       │   │   ├── CO_2ADECFCE725104E7A4FA8A41BE4203A9.avro
+│       │   │   ├── CO_35C233ECF863DA5CD12B7BAB2C39A95F.avro
+│       │   │   ├── CO_598E09319817FF322967EB4E3357ED83.avro
+│       │   │   ├── CO_5CE1E37371F6031E813240264D9CA12B.avro
+│       │   │   ├── CO_6E31469FF4F417E235CBC1A143B4B1E7.avro
+│       │   │   ├── CO_92824A60519922542D1E716B3368C9CA.avro
+│       │   │   ├── CO_C5336D59742C23607937FEEBE190320E.avro
+│       │   │   ├── CO_DB1B36FD404804218961D864A61DF021.avro
+│       │   │   ├── CO_DED54B189DE7C83655A053A244DE7DFE.avro
+│       │   │   └── CO_F2DE9DFF05CDA494ACC8873253A22C36.avro
+│       │   ├── 20191225
+│       │   │   ├── CO_1F03B2B1544C12B6DF6D8E41F2304D5B.avro
+│       │   │   ├── CO_2284049B24EE445D9F3381442E1B18B9.avro
+│       │   │   ├── CO_267377945727EAD225085EFF7EFBA639.avro
+│       │   │   ├── CO_3BF456AACCAD540DE1606338BC9531A7.avro
+│       │   │   ├── CO_3FA9F59D33E353B35B52D571B870AB3E.avro
+│       │   │   ├── CO_41CFFB52ECBA0C6EA5EBB888967FE99B.avro
+│       │   │   ├── CO_7E75F48713703C7EF3727C7F63906594.avro
+│       │   │   ├── CO_9054C4A7839CBE3D7ACFA682A2E233EF.avro
+│       │   │   ├── CO_953E9F7328D33EF1F1063EAC5CA300A4.avro
+│       │   │   ├── CO_9586F9D96C5FE6188C2BDEC0CFC437B3.avro
+│       │   │   ├── CO_9CFE80D804DCAD0759F2763302DD5963.avro
+│       │   │   ├── CO_B61D628831EFC1546B0F5B108AF9D628.avro
+│       │   │   └── CO_F88F77587E14814B3670CFB0CC388F2A.avro
+│       │   ├── 20191226
+│       │   │   ├── CO_87E3200811898B74A901305CD07B5307.avro
+│       │   │   ├── CO_A897CA01462750C22F273437C4EA83B3.avro
+│       │   │   ├── CO_ABBDCEAD197AE57B50EE851E1DF37DA3.avro
+│       │   │   ├── CO_AE12BE360D5EB3D6C9E415B07552B37F.avro
+│       │   │   ├── CO_AFAFDC1721BDE4A9E521C20AE2E123A2.avro
+│       │   │   ├── CO_D82B39FD62A4949534191C6D6C464AAC.avro
+│       │   │   └── CO_E21E7A09E8308A2C8D27C664E443F9A4.avro
+│       │   ├── 20191227
+│       │   │   ├── CO_24983D94B374792A47C9E2D861925187.avro
+│       │   │   ├── CO_5E81CD23B144EAEFF7C878EBAE7BED75.avro
+│       │   │   ├── CO_639620B6A1A9A10DFC51CDECF2DDEAC4.avro
+│       │   │   ├── CO_71E9C7C1F75905574C2F663B653BF32B.avro
+│       │   │   ├── CO_79E0BE7F8939980D77A3F4A7504A37C5.avro
+│       │   │   ├── CO_9DDF4FCA0091F34EBB6396B681A5BB38.avro
+│       │   │   ├── CO_BDD2FA7D4AB9CAB16CA3FC956B02FA74.avro
+│       │   │   ├── CO_C953A622B5C9031CA7B9F48939392B0E.avro
+│       │   │   ├── CO_C996B5A85D85E708A2B2F403B2254DAE.avro
+│       │   │   ├── CO_DEADD3483309A250D424CEF4E0E044B2.avro
+│       │   │   ├── CO_F00EE92952B91C56FE0E9E84E194138B.avro
+│       │   │   └── CO_F995FE9E0D4734732F47413667B1A433.avro
+│       │   ├── 20191228
+│       │   │   ├── CO_2507F66C39629A3A2E2B962710F58511.avro
+│       │   │   ├── CO_2B96D304AB7FB4CB55E3EA9550B2C21C.avro
+│       │   │   ├── CO_3572725FF5EFBAF13101C15353F1C9C9.avro
+│       │   │   ├── CO_42E3F4E75EB0D7068A9B215DF832416F.avro
+│       │   │   ├── CO_7B6CABF3AA6DB8190FE9D196E713110B.avro
+│       │   │   ├── CO_7D3861DC327F66BE2AC193F9831FA11F.avro
+│       │   │   ├── CO_8AD66A4F67BA3F1B173653E8928B89DF.avro
+│       │   │   ├── CO_B50952EC7C27B4DD0D380496AB0755F5.avro
+│       │   │   ├── CO_B80E10EE1E390E4F7B0C2AAC49FA592E.avro
+│       │   │   ├── CO_F1E1D30E4AAB53168B8E2270417D9683.avro
+│       │   │   ├── CO_F280A262E1DF3BB311B605B069B3BBD2.avro
+│       │   │   └── CO_F5294CD988751B76FF21A9F337351E99.avro
+│       │   ├── 20191229
+│       │   │   ├── CO_202DE1A35217F582F0B028013AEB5C6D.avro
+│       │   │   ├── CO_254131352DEB09BA503118C0215E8BD9.avro
+│       │   │   ├── CO_2E7D4FC4645C24444B7CA12748F51158.avro
+│       │   │   ├── CO_6B3582A0C07539EBCA1C1ECA7DD7E49D.avro
+│       │   │   ├── CO_C64CD5415BC1C50B4B8EA59F5F50E04D.avro
+│       │   │   ├── CO_D71E6900B60BC4F0ACCE783294ED7028.avro
+│       │   │   ├── CO_D7CF613EC2EB3101975FA8C044B45CCA.avro
+│       │   │   ├── CO_D8CEB3FE781C2F3CCFEF81F30FE0542D.avro
+│       │   │   ├── CO_FAC971ECA64ABBC9A3C86E1FC320D432.avro
+│       │   │   └── CO_FDABA548FD5CA149C9C4BF69FC11A0DB.avro
+│       │   ├── 20191230
+│       │   │   ├── CO_113E2FCD2B8A5A9FB245AEB3CDB6A57B.avro
+│       │   │   ├── CO_1BCD0A6DB84E9D60CFC43EB666CD24DE.avro
+│       │   │   ├── CO_1F7FC674C299A84AA0067C37DFA3351E.avro
+│       │   │   ├── CO_4259E541B6146007E76088663F1D67C8.avro
+│       │   │   ├── CO_50E87E8208DD1E9BB1EB3091EC83D390.avro
+│       │   │   ├── CO_5935761E2918343B1BC6C73B1ECBE5B5.avro
+│       │   │   ├── CO_5E6D1A2239AE15A03C921D432DACE2A0.avro
+│       │   │   ├── CO_65DD47530358793FE941B463CC47964C.avro
+│       │   │   └── CO_A847F00C6F6E73FF83C52203F9FCD433.avro
+│       │   └── 20191231
+│       │       ├── CO_1CF5FD47AAE2E825CE7D2838629C15D1.avro
+│       │       ├── CO_3C9A423A382FE614E9E46198AC1E8655.avro
+│       │       ├── CO_437ED6DB592DA9BCBDDE7F23105C8920.avro
+│       │       ├── CO_55903E23E80E71C0AA79A1B79654A5DB.avro
+│       │       ├── CO_5C2A872EE36A110F884C44ACDCF2BA08.avro
+│       │       ├── CO_95764B07C1CBF156F0C220019359D401.avro
+│       │       ├── CO_B4CE70D4E86318F9A184001EA9BEFC07.avro
+│       │       ├── CO_C42A670E6B068732435DDC03EC56D519.avro
+│       │       ├── CO_D39620B705988C6B79200800261C0641.avro
+│       │       ├── CO_E959A5CABD937A3BF1B5D085E636744F.avro
+│       │       ├── CO_F3610B3655AC1415BEBF3B5313E81BD2.avro
+│       │       └── CO_FD74F5D0DC4BD1BC3B3A6B32DAC744B2.avro
+│       ├── processed
+│       │   ├── analyzed
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-01.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-02.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-03.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-04.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-05.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-06.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-07.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-08.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-09.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-10.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-11.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-12.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-13.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-14.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-15.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-16.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-17.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-18.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-19.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-20.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-21.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-22.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-23.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-24.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-25.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-26.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-27.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-28.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-29.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-30.db
+│       │   │   ├── dns_analyzed_for_plots-HYBRID-2019-12-31.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-01.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-02.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-03.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-04.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-05.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-06.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-07.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-08.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-09.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-10.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-11.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-12.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-13.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-14.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-15.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-16.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-17.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-18.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-19.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-20.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-21.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-22.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-23.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-24.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-25.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-26.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-27.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-28.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-29.db
+│       │   │   ├── dns_analyzed_longitudinal-HYBRID-2019-12-30.db
+│       │   │   └── dns_analyzed_longitudinal-HYBRID-2019-12-31.db
+│       │   ├── dns_agg-2019-12.db
+│       │   ├── dns_analyzed_for_plots-HYBRID.db
+│       │   ├── dns_analyzed_longitudinal-HYBRID.db
+│       │   ├── dns_with_alexa_cdn_pen-HYBRID.db
+│       │   └── dns_with_alexa-HYBRID.db
+│       └── toplists
+│           ├── 2019-12-01.csv
+│           ├── 2019-12-02.csv
+│           ├── 2019-12-03.csv
+│           ├── 2019-12-04.csv
+│           ├── 2019-12-05.csv
+│           ├── 2019-12-06.csv
+│           ├── 2019-12-07.csv
+│           ├── 2019-12-08.csv
+│           ├── 2019-12-09.csv
+│           ├── 2019-12-10.csv
+│           ├── 2019-12-11.csv
+│           ├── 2019-12-12.csv
+│           ├── 2019-12-13.csv
+│           ├── 2019-12-14.csv
+│           ├── 2019-12-15.csv
+│           ├── 2019-12-16.csv
+│           ├── 2019-12-17.csv
+│           ├── 2019-12-18.csv
+│           ├── 2019-12-19.csv
+│           ├── 2019-12-20.csv
+│           ├── 2019-12-21.csv
+│           ├── 2019-12-22.csv
+│           ├── 2019-12-23.csv
+│           ├── 2019-12-24.csv
+│           ├── 2019-12-25.csv
+│           ├── 2019-12-26.csv
+│           ├── 2019-12-27.csv
+│           ├── 2019-12-28.csv
+│           ├── 2019-12-29.csv
+│           ├── 2019-12-30.csv
+│           └── 2019-12-31.csv
+├── num-alexa-sites.csv
+└── plots
+    ├── alexa-top1m-pen-HYBRID.pdf
+    ├── cdn_pen_by_rank_contrib_without_total-HYBRID.pdf
+    ├── cdn_pen_by_rank_google_blogspot-HYBRID.pdf
+    └── cdn_pen_by_rank-HYBRID.pdf

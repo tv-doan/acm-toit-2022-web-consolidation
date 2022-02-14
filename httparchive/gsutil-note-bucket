@@ -1,0 +1,2 @@
+# multithreaded [-m] copying [cp] of all files in a bucket [gs://.../*] to directory [dst]
+sudo gsutil -m cp gs://httparchive/[...]/* [dst]
